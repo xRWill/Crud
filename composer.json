@@ -1,28 +1,28 @@
 {
-    "name":    "llstarscreamll/Crud",
-    "version": "3.0",
-    "type":    "php-library",
-    "license": "MIT",
-    "description": "Generador de aplicaciones CRUD para Laravel 5.4",
-    "authors": [
-        {
-            "name": "Johan Alvarez",
-            "email": "llstarscreamll@hotmail.com",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "email": "llstarscreamll@hotmail.com",
-        "issues": "https://github.com/llstarscreamll/CrudGenerator/issues",
-        "source": "https://github.com/llstarscreamll/CrudGenerator"
-    },
-    "require": {
-        "php": ">=7",
-        "laravel/framework": "5.4.*",
-        "laravelcollective/html": "5.4.*",
-        "doctrine/dbal": "^2.5"
-    },
-    "require-dev": {},
-    "minimum-stability": "stable",
-    "prefer-stable": true
+  "name": "anheru88/Crud",
+  "version": "3.0",
+  "type": "php-library",
+  "license": "MIT",
+  "description": "Generador de aplicaciones CRUD para Laravel 5.6 y apiato 7.2",
+  "authors": [
+    {
+      "name": "Angel Jimenez",
+      "email": "ajimenez@digitalcaribe.com.co",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "ajimenez@digitalcaribe.com.co",
+    "issues": "https://github.com/anheru88/Crud/issues",
+    "source": "https://github.com/anheru88/Crud"
+  },
+  "require": {
+    "php": ">=7",
+    "laravel/framework": "5.6.*",
+    "laravelcollective/html": "5.6.*",
+    "doctrine/dbal": "^2.5"
+  },
+  "require-dev": {},
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }
