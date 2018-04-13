@@ -2,7 +2,7 @@
 <div id="system-notifications" class="row">
 
     <div class="col-sm-8 col-sm-offset-2">
-        
+
         {{--
             Validation error notification.
         --}}
@@ -24,8 +24,8 @@
             </div>
         @endif
 
-        @include('theme::.Inspinia.partials.notifications.success')
-        @include('theme::.Inspinia.partials.notifications.warning')
-        @include('theme::.Inspinia.partials.notifications.error')
+        @include('crud::partials.notifications.success')
+        @include('crud::partials.notifications.warning')
+        @include('crud::partials.notifications.error')
     </div>
 </div>
