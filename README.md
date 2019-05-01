@@ -12,7 +12,7 @@ If you don't know apiato already, go to the [apiato DOCS site](http://apiato.io/
 From the apiato root folder:
 
 ```bash
-git clone https://github.com/llstarscreamll/Crud.git app/Containers/Crud
+git clone https://github.com/xRWill/Crud.git app/Containers/Crud
 # this will add some Codeception helpers and criterias on Ship folder
 php artisan vendor:publish --provider="App\Containers\Crud\Providers\MainServiceProvider" --tag=classes
 composer update
