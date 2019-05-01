@@ -1,9 +1,9 @@
 {
-  "name": "anheru88/Crud",
+  "name": "xRWill/Crud",
   "version": "3.0",
   "type": "php-library",
   "license": "MIT",
-  "description": "Generador de aplicaciones CRUD para Laravel 5.6 y apiato 7.2",
+  "description": "Gerador de aplicativos CRUD para Laravel 5.6 e apiato 7.4",
   "authors": [
     {
       "name": "Angel Jimenez",
@@ -13,11 +13,11 @@
   ],
   "support": {
     "email": "ajimenez@digitalcaribe.com.co",
-    "issues": "https://github.com/anheru88/Crud/issues",
-    "source": "https://github.com/anheru88/Crud"
+    "issues": "https://github.com/xRWill/Crud/issues",
+    "source": "https://github.com/xRWill/Crud"
   },
   "require": {
-    "php": ">=7",
+    "php": ">=7.1.3",
     "laravel/framework": "5.6.*",
     "laravelcollective/html": "5.6.*",
     "doctrine/dbal": "^2.5"
