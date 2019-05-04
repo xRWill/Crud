@@ -39,12 +39,12 @@ class {{ $criteria }} extends Criteria
             ? $model->where({{ $crud->getConditionStr($field, 'true') }})
             : $model;
 
-        $model = $this->input->has('{{ $field->name }}_false' && !$this->input->has('{{ $field->name }}_true')
-            ? $model->where({{ $crud->getConditionStr($field, 'false') }})
+        $model = $this->input->has('{{ $field->name }}_false') && !$this->input->has('{{ $field->name }}_true')
+            ? $model->where({!! $crud->getConditionStr($field, 'false') !!})
             : $model;
 
         $model = $this->input->has('{{ $field->name }}_false') && $this->input->has('{{ $field->name }}_true')
-            ? $model->orWhere({{ $crud->getConditionStr($field, 'false') }})
+            ? $model->orWhere({!! $crud->getConditionStr($field, 'false') !!})
             : $model;
 
 @elseif ($field->type == 'enum' || $field->key == 'MUL' || $field->key == 'PRI')
