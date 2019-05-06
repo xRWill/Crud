@@ -47,22 +47,22 @@ class CreateAngular2DirsTask
 
         // generate angular module folder
         if (!file_exists($this->moduleDir())) {
-            mkdir($this->moduleDir(), null, true);
+            mkdir($this->moduleDir(), 0755, true);
         }
 
         // generate angular translations folder
         if (!file_exists($this->translationsDir())) {
-            mkdir($this->translationsDir(), null, true);
+            mkdir($this->translationsDir(), 0755, true);
         }
 
         // generate angular components folder
         if (!file_exists($this->componentsDir())) {
-            mkdir($this->componentsDir(), null, true);
+            mkdir($this->componentsDir(), 0755, true);
         }
 
         // generate angular containers folder
         if (!file_exists($this->containersDir())) {
-            mkdir($this->containersDir(), null, true);
+            mkdir($this->containersDir(), 0755, true);
         }
 
         // generate angular models folder
