@@ -267,7 +267,7 @@ class CreateCodeceptionTestsTask
     private function createEntityApiTestsFolder()
     {
         if (!file_exists($this->apiTestsFolder().'/'.$this->entityName()) && $this->request->get('group_main_apiato_classes', false)) {
-            mkdir($this->apiTestsFolder().'/'.$this->entityName(), null, true);
+            mkdir($this->apiTestsFolder().'/'.$this->entityName(), 0755, true);
         }
     }
 }

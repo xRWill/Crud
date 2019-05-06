@@ -23,7 +23,7 @@
 ### Changed
 
 - Rename templates variable `$gen` to `$crud`.
-- Rename changelog, lisence and readme files.
+- Rename changelog, licence and readme files.
 - Rename test folder to Tests.
 
 ## 3.7 (2017-06-14)
