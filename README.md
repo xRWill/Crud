@@ -14,8 +14,9 @@ From the apiato root folder:
 ```bash
 git clone https://github.com/xRWill/Crud.git app/Containers/Crud
 # this will add some Codeception helpers and criterias on Ship folder
-php artisan vendor:publish --provider="App\Containers\Crud\Providers\MainServiceProvider" --tag=classes
 composer update
+php artisan vendor:publish --provider="App\Containers\Crud\Providers\MainServiceProvider" --tag=classes
+
 ```
 
 If you have foreign keys on your table, the generated transformer will try to hash that foreign keys with this method that you must put in `App\Ship\Parents\Transformers\Transformer` abstract class:
