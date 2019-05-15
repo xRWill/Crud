@@ -1,6 +1,6 @@
-# CRUD PORTO and Angular Generator Container for [apiato 7.4.7](https://github.com/apiato/apiato)
+# CRUD PORTO and Angular Generator Container for [apiato 7.4.7](https://github.com/xRWill/apiato)
 
-This is a [PORTO](https://github.com/Porto-SAP/Documentation) Container for [apiato 7.4.7](https://github.com/apiato/apiato) to scaffold you applications, at the moment the package generates the API stuff only, and generates an Angular 2+ module that consumes the generated container API. There is a lot of work to do, pull requests are very welcome!! ^_^
+This is a [PORTO](https://github.com/Porto-SAP/Documentation) Container for [apiato 7.4.7](https://github.com/xRWill/apiato) to scaffold you applications, at the moment the package generates the API stuff only, and generates an Angular 2+ module that consumes the generated container API. There is a lot of work to do, pull requests are very welcome!! ^_^
 
 If you don't know apiato already, go to the [apiato DOCS site](http://apiato.io/) and give it a try, it's an amazing project!!
 
@@ -108,9 +108,9 @@ Here are a quick overview of the generated folders/files to give you the big ide
 
 The generated code will be:
 
-### [apiato 7.4.7](https://github.com/apiato/apiato) Container
+### [apiato 7.4.7](https://github.com/xRWill/apiato) Container
 
-The generated container intends to follow the [PORTO](https://github.com/Mahmoudz/Porto) architectural pattern. A small difference with the **apiato** containers is that tests are generated with [Codeception](http://codeception.com/) unless **phpunit**, these tests are [namespaced](http://codeception.com/docs/08-Customization#Namespaces) with the container name. The generated API has some end points useful to work with the generated Angular module forms, e.g. serving a entity "Form Model/Select List" to build forms from server without update the Angular module, and have an entity list array to be used on select dropdowns (like some DB users list or something else). Obviosly the form builder on the Angular side is providen by the [Hello-Angular](https://github.com/llstarscreamll/Hello-Angular) project, the generated Angular module fits very well with *Hello-Angular*, but you can use it on your own main Angular project, just make sure to satisfy the dependencies from the generated module.
+The generated container intends to follow the [PORTO](https://github.com/Mahmoudz/Porto) architectural pattern. A small difference with the **apiato** containers is that tests are generated with [Codeception](http://codeception.com/) unless **phpunit**, these tests are [namespaced](http://codeception.com/docs/08-Customization#Namespaces) with the container name. The generated API has some end points useful to work with the generated Angular module forms, e.g. serving a entity "Form Model/Select List" to build forms from server without update the Angular module, and have an entity list array to be used on select dropdowns (like some DB users list or something else). Obviosly the form builder on the Angular side is providen by the [Hello-Angular](https://github.com/xRWill/Hello-Angular) project, the generated Angular module fits very well with *Hello-Angular*, but you can use it on your own main Angular project, just make sure to satisfy the dependencies from the generated module.
 
 ```bash
 |─── Library
@@ -231,7 +231,7 @@ codecept run api
 > **NOTE:**
 > To generate your Angular module you must have the respective generated apiato Container first. Why? Because the generator create fake data with the generated container factories on the Angular module tests.
 
-This module is intended to work with this [Hello-Angular](https://github.com/llstarscreamll/Hello-Angular) application, when the generated module is placed in the *Hello-Angular* app (or your Angular app), then you must declare the module on the main modules array `src/app/modules.ts` file and reducers on the `src/app/reducers.ts` file, the reducers to be copied are commented on the generated `entity.reducers.ts` file to make things easy, following the _Library/books_ exampĺe, said reducers should look something like this:
+This module is intended to work with this [Hello-Angular](https://github.com/xRWill/Hello-Angular) application, when the generated module is placed in the *Hello-Angular* app (or your Angular app), then you must declare the module on the main modules array `src/app/modules.ts` file and reducers on the `src/app/reducers.ts` file, the reducers to be copied are commented on the generated `entity.reducers.ts` file to make things easy, following the _Library/books_ exampĺe, said reducers should look something like this:
 
 ```javascript
 /* -----------------------------------------------------------------------------
