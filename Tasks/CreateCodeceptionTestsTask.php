@@ -61,6 +61,7 @@ class CreateCodeceptionTestsTask
     {
         $this->request = $request;
         $this->container = studly_case($request->get('is_part_of_package'));
+        $this->connectionName = $request->get('connection_name');
         $this->tableName = $this->request->get('table_name');
         $this->parsedFields = $this->parseFields($this->request);
     }
@@ -117,7 +118,7 @@ class CreateCodeceptionTestsTask
         $filePath = $this->testsFolder().'/_support/Helper/'.$fileName;
 
         $fileContents = $this->getHelperClassContents();
-        
+
         $fileContents = $this->addMethodToHelper($fileContents);
         $fileContents = $this->addUseStatementsToHelperClass($fileContents);
 
@@ -140,7 +141,7 @@ class CreateCodeceptionTestsTask
         }
 
         $template = $this->templatesDir().'.Porto.tests._support.Helper.-container-Helper';
-        
+
         return (string) view($template, [
             'crud' => $this,
             'fields' => $this->parsedFields

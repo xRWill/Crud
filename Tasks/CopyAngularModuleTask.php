@@ -39,6 +39,7 @@ class CopyAngularModuleTask
     {
         $this->request = $request;
         $this->container = studly_case($request->get('is_part_of_package'));
+        $this->connectionName = $request->get('connection_name');
         $this->tableName = $this->request->get('table_name');
     }
 
