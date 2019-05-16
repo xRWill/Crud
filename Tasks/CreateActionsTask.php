@@ -61,6 +61,7 @@ class CreateActionsTask
     {
         $this->request = $request;
         $this->container = studly_case($request->get('is_part_of_package'));
+        $this->connectionName = $request->get('connection_name');
         $this->tableName = $this->request->get('table_name');
         $this->parsedFields = $this->parseFields($this->request);
     }
@@ -71,13 +72,13 @@ class CreateActionsTask
     public function run()
     {
         $this->createEntityActionsFolder();
-        
+
         foreach ($this->files as $file) {
             // prevent to create Restore test if table hasn't SoftDelete column
             if (str_contains($file, ['Restore']) && !$this->hasSoftDeleteColumn) {
                 continue;
             }
-            
+
             $plural = ($file == "ListAndSearch") ? true : false;
             $atStart = in_array($file, ['FormData']) ? true : false;
 

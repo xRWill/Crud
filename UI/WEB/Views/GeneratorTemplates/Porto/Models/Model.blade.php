@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * {{ $crud->entityName() }} Class.
- * 
+ *
  * @author [name] <[<email address>]>
  */
 class {{ $crud->entityName() }} extends Model
@@ -23,7 +23,7 @@ class {{ $crud->entityName() }} extends Model
      *
      * @var string
      */
-    // protected $connection = 'connection-name';
+    {{ $crud->connectionName == config('database.default') ? '// ' : '' }}protected $connection = '{{ $crud->connectionName }}';
 
     /**
      * Database table name.

@@ -43,6 +43,8 @@ class GeneratorController extends WebController
      */
     private $generateConfigFileAction;
 
+    public $connectionName;
+
     /**
      * Create a new controller instance.
      */
@@ -50,12 +52,15 @@ class GeneratorController extends WebController
         GeneratePortoContainerAction $generatePortoContainerAction,
         GenerateStandardLaravelApp $generateStandardLaravelApp,
         GenerateAngular2ModuleAction $generateAngular2ModuleAction,
-        GenerateConfigFileAction $generateConfigFileAction
+        GenerateConfigFileAction $generateConfigFileAction,
+        Request $request = null
     ) {
         $this->generatePortoContainerAction = $generatePortoContainerAction;
         $this->generateStandardLaravelApp = $generateStandardLaravelApp;
         $this->generateAngular2ModuleAction = $generateAngular2ModuleAction;
         $this->generateConfigFileAction = $generateConfigFileAction;
+
+      $this->connectionName = $request->get('connection_name') ? $request->get('connection_name') : config('database.default');
     }
 
     /**
@@ -66,7 +71,9 @@ class GeneratorController extends WebController
      */
     public function index(Request $request)
     {
-        $data['tables'] = DB::connection()->getDoctrineSchemaManager()->listTableNames();
+        $data['connection_name'] = $this->connectionName;
+        $data['connections'] = array_keys(config('database.connections'));
+        $data['tables'] = DB::connection($request->get('connection_name'))->getDoctrineSchemaManager()->listTableNames();
         $data['config_files'] = [];
 
         $savedConfigsPath =  storage_path('app/crud/options/');
@@ -87,7 +94,7 @@ class GeneratorController extends WebController
         foreach($request->get('config') as $config) {
             $savedConfigsPath = storage_path('app/crud/options/');
             $data = require_once $savedConfigsPath . $config . ".php";
-            
+
             $data = collect($request->except('_token') + $data);
 
             if ($request->get('generate_porto_container', false)) {
@@ -119,7 +126,7 @@ class GeneratorController extends WebController
                 ->back()
                 ->with(
                     'error',
-                    "The table '.$request->get('table_name').' doesn't exists!!"
+                    "The table ".$request->get('table_name')." doesn't exists on ". $this->connectionName ." connection!!"
                 );
         }
 
@@ -143,7 +150,7 @@ class GeneratorController extends WebController
         // go to the CRUD settings page
         return redirect()->route(
             'crud.showOptions',
-            ['table_name' => $request->get('table_name')]
+            ['connection_name' => $this->connectionName, 'table_name' => $request->get('table_name')]
         );
     }
 
@@ -154,7 +161,7 @@ class GeneratorController extends WebController
      */
     private function tableExists($table)
     {
-        return \Schema::hasTable($table);
+        return \Schema::connection($this->connectionName)->hasTable($table);
     }
 
     /**
@@ -168,7 +175,8 @@ class GeneratorController extends WebController
         if (!$this->tableExists($request->get('table_name', 'null'))) {
             return redirect()
                 ->back()
-                ->with('error', $request->get('table_name').' table doesn\'t exists');
+                ->with('error',
+                  "The table ".$request->get('table_name')." doesn't exists on ". $this->connectionName ." connection!!");
         }
 
         // try to retrieve the last given CRUD config options for this table
@@ -178,9 +186,11 @@ class GeneratorController extends WebController
         $modelGenerator = new ModelGenerator($request);
 
         $data['fields'] = $modelGenerator->fields($request->get('table_name'));
+        $data['connection_name'] = $this->connectionName;
         $data['table_name'] = $request->get('table_name');
+        $data['connections'] = array_keys(config('database.connections'));
+        $data['tables'] = DB::connection($this->connectionName)->getDoctrineSchemaManager()->listTableNames();
         $data['UI_themes'] = [];
-        $data['tables'] = DB::connection()->getDoctrineSchemaManager()->listTableNames();
 
         return view('crud::wizard.options', $data);
     }

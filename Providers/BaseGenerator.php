@@ -25,6 +25,7 @@ class BaseGenerator
      */
     public $namespacesAdded = [];
 
+    public $connectionName;
     /**
      * Devuelve los campos o columnas de la tabla especificada.
      *
@@ -32,10 +33,10 @@ class BaseGenerator
      *
      * @return array
      */
-    public static function fields($table)
+    public function fields($table)
     {
         $prefix = config(str_replace(':conection', env('DB_CONNECTION'), 'database.connections.:conection.prefix'));
-        $columns = \DB::select('desc '.$prefix.$table);
+        $columns = \DB::connection($this->connectionName)->select('desc '.$prefix.$table);
         $tableFields = array(); // el valor a devolver
 
         foreach ($columns as $column) {
@@ -131,7 +132,7 @@ class BaseGenerator
      */
     public function getForeignKeys($tableName)
     {
-        $results = \DB::select(
+        $results = \DB::connection($this->connectionName)->select(
             "select
             concat('$this->query_wildcard', table_name, '$this->query_wildcard.', column_name) as 'foreign_key',  
             concat(referenced_table_name, '.', referenced_column_name) as 'references'
@@ -139,7 +140,7 @@ class BaseGenerator
                 information_schema.key_column_usage
             where
                 referenced_table_name is not null
-            and table_schema = '".config('database.connections.'.env('DB_CONNECTION', 'mysql').'.database')."'"
+            and table_schema = '".config('database.connections.'. $this->connectionName .'.database')."'"
         );
 
         $data = [];

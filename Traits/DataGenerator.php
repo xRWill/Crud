@@ -44,6 +44,7 @@ trait DataGenerator
      */
     public $hasRelations = false;
 
+    public $connectionName;
     /**
      * @var string
      */
@@ -188,7 +189,7 @@ trait DataGenerator
             case 'time':
                 $type = "time";
                 break;
-            
+
             case 'int': {
                 $type = "number";
                 if ($field->namespace) {
@@ -204,7 +205,7 @@ trait DataGenerator
             case 'text':
                 $type = "textarea";
                 break;
-            
+
             default:
                 $type = "text";
                 break;
@@ -295,7 +296,7 @@ trait DataGenerator
     {
         $prefix = config('database.connections.'.env('DB_CONNECTION').'.prefix');
 
-        return \DB::select(
+        return \DB::connection($this->connectionName)->select(
             \DB::raw(
                 "SHOW COLUMNS FROM {$prefix}{$this->tableName} WHERE Field = '$column'"
             )
@@ -361,7 +362,7 @@ trait DataGenerator
         if ($field->name == 'id') {
             return 'string | number';
         }
-        
+
         $stringTypes = [
             'varchar',
             'char',
@@ -409,13 +410,13 @@ trait DataGenerator
      * @param  string $template      The index template file to create
      * @param  string $className     The class name to search for on existing index file
      * @param  string $fileName      The file name where the above class is located
-     * @return void                
+     * @return void
      */
     public function setupIndexFile(string $indexFilePath, string $template, string $className, string $fileName)
     {
         if (file_exists($indexFilePath)) {
             $indexFileContents = file_get_contents($indexFilePath);
-            
+
             if (strpos($indexFileContents, $className)) {
                 session()->push('warning', $className.' already added on index file');
             } else {
@@ -431,7 +432,7 @@ trait DataGenerator
                     ? session()->push('error', $className." index file setup error")
                     : session()->push('success', $className." index file setup success");
             }
-            
+
             return;
         }
 
@@ -456,7 +457,7 @@ trait DataGenerator
     public function indexFileReplacements(string $className, string $fileName)
     {
         $classImport = "import { $className } from '$fileName'";
-        
+
         if (isset($this->indexClassTemplate)) {
             $className = str_replace(':class', $className, $this->indexClassTemplate);
         }

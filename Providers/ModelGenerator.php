@@ -23,6 +23,7 @@ class ModelGenerator extends BaseGenerator
      */
     public function __construct($request)
     {
+        $this->connectionName = $request->get('connection_name') ? $request->get('connection_name') : config('database.default');
         $this->table_name = $request->get('table_name');
         $this->request = $request;
     }
@@ -98,7 +99,7 @@ class ModelGenerator extends BaseGenerator
      */
     public function getMysqlTableColumnEnumValues($column)
     {
-        return \DB::select(
+        return \DB::connection($this->connectionName)->select(
             \DB::raw(
                 "SHOW COLUMNS FROM {$this->getDatabaseTablesPrefix()}$this->table_name WHERE Field = '$column'"
             )
@@ -110,8 +111,8 @@ class ModelGenerator extends BaseGenerator
      *
      * @return string El nombre del driver de la conexión a la base de datos
      */
-    public static function getDatabaseTablesPrefix()
+    public function getDatabaseTablesPrefix()
     {
-        return config('database.connections.'.config('database.default').'.prefix');
+        return config('database.connections.'.$this->connectionName.'.prefix');
     }
 }

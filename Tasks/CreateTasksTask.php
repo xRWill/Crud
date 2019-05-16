@@ -59,6 +59,7 @@ class CreateTasksTask
     {
         $this->request = $request;
         $this->container = studly_case($request->get('is_part_of_package'));
+        $this->connectionName = $request->get('connection_name');
         $this->tableName = $this->request->get('table_name');
         $this->parsedFields = $this->parseFields($this->request);
     }
@@ -77,7 +78,7 @@ class CreateTasksTask
             if (str_contains($file, ['Restore']) && !$this->hasSoftDeleteColumn) {
                 continue;
             }
-            
+
             $plural = ($file == "ListAndSearch") ? true : false;
 
             $taskFile = $this->tasksFolder()."{$this->solveGroupClasses('d')}/".$this->taskFile($file, $plural);
